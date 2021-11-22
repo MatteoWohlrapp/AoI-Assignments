@@ -1,7 +1,3 @@
-; Hello Matteo, I hope this works :)
-; This is the code we need to fix
-; For now, I'll start fixing the more obvious things and acoment what I did.
-; Later we can propperly comment on everyhting
 
 (clear-all)
 
@@ -19,56 +15,65 @@
  (three ISA number number three next four)
  (four ISA number number four next five)
  (five ISA number number five next six)
- (six ISA number number six next seven) ;"seven" was "eight". I changed it
+ ; changed "eight" to "seven"
+ (six ISA number number six next seven)
  (seven ISA number number seven next eight)
  (eight ISA number number eight next nine)
  (nine ISA number number nine next ten)
  (ten ISA number number ten)
- (test-goal ISA add arg1 zero arg2 zero))
+ (test-goal ISA add arg1 one arg2 one))
 
- ; All "ISA" were in lower case for the numbers. I set them to upper case for clarity (lisp is not case sensitive)
+; All "ISA" were in lower case, changed for clarity even though lisp is not case sensitive
 
- ;(goal-focus test-goal) I'm not sure we need to add this
 
 (P initialize-addition 
    =goal>
-      ISA         add            ; This line was just "add", without "ISA"
+   ; added 'ISA' to the line
+      ISA         add          
       arg1        =num1
       arg2        =num2
       sum         nil
   ==>
-   =goal
+  ; added '>'
+   =goal>
       ISA         add
       sum         =num1
       count       zero
    +retrieval>
-      ISA         number
-      number      =num1 ; maybe this should be "num1"
+      ISA         number 
+      number      =num1 
 )
 
 (P terminate-addition
    =goal>
       ISA         add
       count       =num
-      arg2        =num2 ; maybe this should be "num"
-      sum         =answer ; "sum" was "summ"
+      ; change variable to num, so arg2 matches num 
+      arg2        =num 
+      ; typo: summ -> sum
+      sum         =answer
+   ; added condition for retrieval buffer to check if answers match
+   =retrieval>
+      ISA         number
+      number      =answer
   ==>
    =goal>
       ISA         add
       count       nil
 )
 
-
-(P increment-sum1 ; This and the following productions had the same name so I numbered them
+; changed name since not the sum gets incremented but the count
+(P increment-count 
    =goal>
       ISA         add
       sum         =sum
       count       =count
    =retrieval>
       ISA         number
-      number      =sum
+      ; changed sum to count, so the two variables match. Necessary since we are increamenting count 
+      number      =count
       next        =newcount
-==>
+  ==>
    =goal>
       ISA         add
       count       =newcount
@@ -77,7 +82,7 @@
       number     =sum
 )
 
-(P increment-sum2
+(P increment-sum
    =goal>
       ISA         add
       sum         =sum
@@ -85,6 +90,8 @@
     - arg2        =count
    =retrieval>
       ISA         number
+      ; added: necessary to see if the number in the retrieval buffer actually matches the sum 
+      number      =sum 
       next        =newsum
 ==>
    =goal>
@@ -96,3 +103,5 @@
    
 )
 
+ (goal-focus test-goal)
+)
