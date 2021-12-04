@@ -1,0 +1,33 @@
+
+zbrodoff_graph();
+
+function zbrodoff_graph()
+    figure_name = 'zbrodoff_graph_rt.pdf'; 
+    fig = figure('Name', figure_name); 
+    response_time_rt_m1 = [0.55,0.75,0.95,1.15,1.35,1.55,1.75,1.95,2.15,2.35]; 
+    response_time_rt_0 = [0.55,0.75,0.95,1.15,1.35,1.55,1.75,1.95,2.15,2.35]; 
+    response_time_rt_1 = [0.55,0.75,0.95,1.15,1.35,1.55,1.75,1.95,2.15,2.35]; 
+    response_time_rt_2 = [0.55,0.75,0.95,1.15,1.35,1.55,1.75,1.95,2.15,2.35]; 
+
+    plot(1:3,response_time_rt, '-r.', 'LineWidth',1) 
+    hold on 
+    plot(1:3,response_time_rt, '-r.', 'LineWidth',1) 
+    plot(1:3,response_time_rt, '-r.', 'LineWidth',1) 
+    plot(1:3,response_time_rt, '-r.', 'LineWidth',1) 
+
+    xlabel('items on screen');
+    ylabel('time');
+    h = zeros(2,1); 
+    h(1) = plot(NaN,NaN, '.r');
+    h(2) = plot(NaN,NaN, '.b');
+    legend(h, 'Current patricipation', 'Original experiment'); 
+    grid
+    save_plot(fig, figure_name);
+end 
+
+% function to save the plot
+function save_plot(fig, name)
+    set(fig, 'PaperPosition', [0 0 20 20]);
+    set(fig, 'PaperSize', [20 20]);
+    saveas(fig, name);
+end 
